@@ -1,4 +1,3 @@
-
 let num_A = 10;
 let num_B = 5;
 let soma = num_A + num_B;
