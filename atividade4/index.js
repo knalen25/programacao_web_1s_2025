@@ -17,7 +17,7 @@ app.get('/adicionar/:id/:nome/:qtd', (req, res) => {
 });
 
 app.get('/listar', (req, res) => {
-  res.json(listarProdutos());
+  res.send(listarProdutos());
 });
 
 app.get('/remover/:id', (req, res) => {
