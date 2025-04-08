@@ -2,47 +2,34 @@ const express = require('express');
 const app = express();
 const port = 8080;
 
-let estoque = {};
+const {
+  adicionarProduto,
+  listarProdutos,
+  removerProduto,
+  editarProduto
+} = require('./estoque');
 
-// Rota para adicionar um produto ao estoque
+// Rotas
 app.get('/adicionar/:id/:nome/:qtd', (req, res) => {
   const { id, nome, qtd } = req.params;
-
-  if (estoque[id]) {
-    return res.send(`Produto com ID ${id} já existe.`);
-  }
-
-  estoque[id] = { nome, qtd: parseInt(qtd) };
-  res.send(`Produto '${nome}' adicionado com sucesso!`);
+  const resposta = adicionarProduto(id, nome, qtd);
+  res.send(resposta);
 });
 
-// Rota para listar todos os produtos
 app.get('/listar', (req, res) => {
-  res.json(estoque);
+  res.json(listarProdutos());
 });
 
-// Rota para remover um produto
 app.get('/remover/:id', (req, res) => {
   const { id } = req.params;
-
-  if (!estoque[id]) {
-    return res.send(`Produto com ID ${id} não encontrado.`);
-  }
-
-  delete estoque[id];
-  res.send(`Produto com ID ${id} removido com sucesso.`);
+  const resposta = removerProduto(id);
+  res.send(resposta);
 });
 
-// Rota para editar a quantidade de um produto
 app.get('/editar/:id/:qtd', (req, res) => {
   const { id, qtd } = req.params;
-
-  if (!estoque[id]) {
-    return res.send(`Produto com ID ${id} não encontrado.`);
-  }
-
-  estoque[id].qtd = parseInt(qtd);
-  res.send(`Quantidade do produto '${estoque[id].nome}' atualizada para ${qtd}.`);
+  const resposta = editarProduto(id, qtd);
+  res.send(resposta);
 });
 
 // Inicia o servidor
