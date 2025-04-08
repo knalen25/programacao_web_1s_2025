@@ -25,9 +25,18 @@ function adicionarProduto(id, nome, qtd) {
 
 // Lista todos os produtos
 function listarProdutos() {
-  return estoque;
-}
+  let lista = '';
 
+  for(const id in estoque){
+    const produto = estoque[id]
+    lista += `ID: ${id} 
+              Produto: ${produto.nome} 
+              Quantidade: ${produto.qtd}`;
+  }
+
+  return lista || "Estoque vazio.";
+
+} 
 // Remove um produto
 function removerProduto(id) {
   if (!validarNumeroPositivo(id)) {
