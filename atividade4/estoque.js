@@ -1,9 +1,20 @@
-// estoque.js
-
 const estoque = {};
+
+// Função auxiliar para validar número inteiro positivo
+function validarNumeroPositivo(valor) {
+  const numero = parseInt(valor);
+  return Number.isInteger(numero) && numero > 0;
+}
 
 // Adiciona um novo produto
 function adicionarProduto(id, nome, qtd) {
+  if (!validarNumeroPositivo(id)) {
+    return `ID inválido. Deve ser um número inteiro positivo.`;
+  }
+  if (!validarNumeroPositivo(qtd)) {
+    return `Quantidade inválida. Deve ser um número inteiro positivo.`;
+  }
+
   if (estoque[id]) {
     return `Produto com ID ${id} já existe.`;
   }
@@ -19,6 +30,10 @@ function listarProdutos() {
 
 // Remove um produto
 function removerProduto(id) {
+  if (!validarNumeroPositivo(id)) {
+    return `ID inválido. Deve ser um número inteiro positivo.`;
+  }
+
   if (!estoque[id]) {
     return `Produto com ID ${id} não encontrado.`;
   }
@@ -29,6 +44,13 @@ function removerProduto(id) {
 
 // Edita a quantidade de um produto
 function editarProduto(id, qtd) {
+  if (!validarNumeroPositivo(id)) {
+    return `ID inválido. Deve ser um número inteiro positivo.`;
+  }
+  if (!validarNumeroPositivo(qtd)) {
+    return `Quantidade inválida. Deve ser um número inteiro positivo.`;
+  }
+
   if (!estoque[id]) {
     return `Produto com ID ${id} não encontrado.`;
   }
